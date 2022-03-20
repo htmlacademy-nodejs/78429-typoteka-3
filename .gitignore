@@ -13,3 +13,6 @@ node_modules/
 
 # Директория с собранными файлами проекта
 build/
+
+# etc
+mock.json
