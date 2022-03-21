@@ -1,0 +1,25 @@
+{
+  "name": "78429-typoteka-3",
+  "version": "1.0.0",
+  "description": "Типотека",
+  "main": "./src/service/service.js",
+  "scripts": {
+    "start": "node ./src/service/service.js",
+    "test": "npm run eslint",
+    "eslint": "eslint --ext .js src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EKZERSIS/78429-typoteka-3.git"
+  },
+  "author": "Нефедов Андрей",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EKZERSIS/78429-typoteka-3/issues"
+  },
+  "homepage": "https://github.com/EKZERSIS/78429-typoteka-3#readme",
+  "devDependencies": {
+    "eslint": "8.11.0",
+    "eslint-config-htmlacademy": "0.6.0"
+  }
+}
