@@ -1,11 +1,14 @@
 'use strict';
 
-const fs = require(`fs`);
+const fs = require(`fs`).promises;
 const rootPath = process.cwd();
 const {program} = require(`commander`);
 const packageData = require(`${rootPath}/package.json`);
 const dayjs = require(`dayjs`);
 const dayjsRandom = require(`dayjs-random`);
+const chalk = require(`chalk`);
+const log = console.log;
+const plural = require(`plural-ru`);
 
 dayjs.extend(dayjsRandom);
 
@@ -75,31 +78,8 @@ const helpText = `
     --generate <count>    формирует файл mocks.json
 `;
 
-program
-    .option(`--version`)
-    .option(`--help`)
-    .option(`--generate [count]`);
 
-program.parse(process.argv);
-
-const options = program.opts();
-
-if (options.version) {
-  console.log(packageData.version);
-}
-
-if (options.help) {
-  console.log(helpText);
-}
-
-const checkCount = (count) => {
-  if (count > 1000) {
-    program.error(`Не больше 1000 публикаций`);
-  }
-};
-
-if (options.generate) {
-  let count = options.generate;
+const generateMock = async (count) => {
   if (/^[0-9]+$/.test(count)) {
     if (count < 1) {
       count = 1;
@@ -131,10 +111,38 @@ if (options.generate) {
     });
   }
 
+  try {
+    await fs.writeFile(`mock.json`, JSON.stringify(publications));
+    log(chalk.green(`Успешно сгенерировано ${count} ${plural(count, `публикация`, `публикации`, `публикаций`)}`));
+  } catch (err) {
+    program.error(chalk.red(err));
+  }
+};
 
-  fs.writeFile(`mock.json`, JSON.stringify(publications), function (err) {
-    if (err) {
-      program.error(err);
-    }
-  });
+
+program
+  .option(`--version`)
+  .option(`--help`)
+  .option(`--generate [count]`);
+
+program.parse(process.argv);
+
+const options = program.opts();
+
+if (options.version) {
+  log(chalk.blue(packageData.version));
+}
+
+if (options.help) {
+  log(chalk.gray(helpText));
+}
+
+const checkCount = (count) => {
+  if (count > 1000) {
+    program.error(chalk.red(`Не больше 1000 публикаций`));
+  }
+};
+
+if (options.generate) {
+  generateMock(options.generate);
 }
