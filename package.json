@@ -21,5 +21,11 @@
   "devDependencies": {
     "eslint": "8.11.0",
     "eslint-config-htmlacademy": "0.6.0"
+  },
+  "dependencies": {
+    "commander": "^9.1.0",
+    "dayjs": "^1.11.0",
+    "dayjs-random": "^1.0.1",
+    "inquirer": "^8.2.1"
   }
 }
