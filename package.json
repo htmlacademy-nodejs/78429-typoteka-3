@@ -4,7 +4,7 @@
   "description": "Типотека",
   "main": "./src/service/service.js",
   "scripts": {
-    "start": "node ./src/service/service.js",
+    "start": "nodemon ./src/service/service.js --server",
     "test": "npm run eslint",
     "eslint": "eslint --ext .js src/"
   },
@@ -29,6 +29,7 @@
     "dayjs": "^1.11.0",
     "dayjs-random": "^1.0.1",
     "inquirer": "^8.2.1",
+    "nodemon": "^2.0.15",
     "plural-ru": "^2.0.2"
   }
 }
