@@ -4,9 +4,10 @@
   "description": "Типотека",
   "main": "./src/service/service.js",
   "scripts": {
+    "start-front-server": "nodemon ./src/express.js",
     "start": "nodemon ./src/service/service.js --server",
     "test": "npm run eslint",
-    "eslint": "eslint --ext .js src/"
+    "eslint": "eslint --ext .js src/ express/"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "commander": "^9.1.0",
     "dayjs": "^1.11.0",
     "dayjs-random": "^1.0.1",
+    "express": "4.17.3",
     "inquirer": "^8.2.1",
     "nodemon": "^2.0.15",
     "plural-ru": "^2.0.2"
