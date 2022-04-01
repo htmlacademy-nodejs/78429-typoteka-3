@@ -32,6 +32,8 @@
     "express": "4.17.3",
     "inquirer": "^8.2.1",
     "nodemon": "^2.0.15",
-    "plural-ru": "^2.0.2"
-  }
+    "plural-ru": "^2.0.2",
+    "pug": "3.0.2"
+  },
+  "eslintIgnore": ["src/express/public"]
 }
