@@ -7,7 +7,7 @@
     "start-front-server": "nodemon ./src/express.js",
     "start": "nodemon ./src/service/service.js --server",
     "test": "npm run eslint",
-    "eslint": "eslint --ext .js src/ express/"
+    "eslint": "eslint --ext .js src/"
   },
   "repository": {
     "type": "git",
