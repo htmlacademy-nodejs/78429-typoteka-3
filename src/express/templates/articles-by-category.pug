@@ -1,19 +1,6 @@
-meta(charset='utf-8')
-meta(name='viewport', content='width=device-width,initial-scale=1')
-meta(name='description', content='Личный блог Типотека')
-meta(http-equiv='X-UA-Compatible', content='ie=edge')
-title Типотека
-link(rel='preload', href='./fonts/Inter-Regular.woff2', as='font', crossorigin='anonymous')
-link(rel='preload', href='./fonts/Inter-Medium.woff2', as='font', crossorigin='anonymous')
-link(rel='preload', href='./fonts/SFProDisplay-Regular.woff2', as='font', crossorigin='anonymous')
-link(rel='stylesheet', href='css/style.min.css')
-.wrapper
-  header.header
-    a.header__logo.logo(href='#')
-      img(src='img/icons/logo.svg', alt='логотип Тайпотеки')
-    a.header__registration(href='#') Регистрация
-    a.header__enter(href='#') Вход с паролем
-    a.header__search.button.button--search(href='#', aria-label='поиск по сайту')
+extends ./common/wrappers/default
+
+block main
   main.articles-category
     h1 Бизнес
     section.articles-category__theme-list
@@ -55,7 +42,7 @@ link(rel='stylesheet', href='css/style.min.css')
             li.preview__breadcrumbs-item
               a.preview__breadcrumbs-link(href='#') Дизайн
           .preview__background
-            img.preview__background-image(src='img/skyscraper@1x.jpg', width='460', height='240', srcset='img/skyscraper@1x.jpg, img/skyscraper@2x.jpg 2x', alt='Фотография небоскреба')
+            img.preview__background-image(src='img/skyscraper@1x.jpg' width='460' height='240' srcset='img/skyscraper@1x.jpg, img/skyscraper@2x.jpg 2x' alt='Фотография небоскреба')
           time.preview__time(datetime='2019-03-21T20:33') 21.03.2019, 20:33
           h3.preview__name
             a.preview__name-link(href='#') Я ничего не понял
@@ -70,7 +57,7 @@ link(rel='stylesheet', href='css/style.min.css')
             li.preview__breadcrumbs-item
               a.preview__breadcrumbs-link(href='#') Дизайн
           .preview__background
-            img.preview__background-image(src='img/sea@1x.jpg', width='460', height='240', srcset='img/sea@1x.jpg, img/sea@2x.jpg 2x', alt='Фотография моря')
+            img.preview__background-image(src='img/sea@1x.jpg' width='460' height='240' srcset='img/sea@1x.jpg, img/sea@2x.jpg 2x' alt='Фотография моря')
           time.preview__time(datetime='2019-03-21T20:33') 21.03.2019, 20:33
           h3.preview__name
             a.preview__name-link(href='#') Путешествие в Голландию
@@ -100,7 +87,7 @@ link(rel='stylesheet', href='css/style.min.css')
             li.preview__breadcrumbs-item
               a.preview__breadcrumbs-link(href='#') Удаленная работа
           .preview__background
-            img(src='img/forest@1x.jpg', width='460', height='240', srcset='img/forest@1x.jpg, img/forest@2x.jpg 2x', alt='Фотография леса')
+            img(src='img/forest@1x.jpg' width='460' height='240' srcset='img/forest@1x.jpg, img/forest@2x.jpg 2x' alt='Фотография леса')
           time.preview__time(datetime='2019-03-21T20:33') 21.03.2019, 20:33
           h3.preview__name
             a.preview__name-link(href='#') Я понял, но не все
@@ -110,10 +97,3 @@ link(rel='stylesheet', href='css/style.min.css')
             span.preview__cloud
             |  
             b.preview__comment-count 12
-  footer.footer
-    a.footer__copyright(href='#', aria-label='HTMLAcademy')
-      img(src='img/icons/HTMLAcademyLogo.svg', width='112', height='50', alt='HTMLAcademy')
-    span.footer__dot
-    p.footer__text Типотека, 2019
-script(src='js/vendor.js')
-script(src='js/main.js')

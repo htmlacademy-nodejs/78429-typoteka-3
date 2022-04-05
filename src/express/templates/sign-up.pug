@@ -1,24 +1,6 @@
-meta(charset='utf-8')
-meta(name='viewport', content='width=device-width,initial-scale=1')
-meta(name='description', content='Личный блог Типотека')
-meta(http-equiv='X-UA-Compatible', content='ie=edge')
-title Типотека
-link(rel='preload', href='./fonts/Inter-Regular.woff2', as='font', crossorigin='anonymous')
-link(rel='preload', href='./fonts/Inter-Medium.woff2', as='font', crossorigin='anonymous')
-link(rel='preload', href='./fonts/SFProDisplay-Regular.woff2', as='font', crossorigin='anonymous')
-link(rel='stylesheet', href='css/style.min.css')
-.wrapper
-  header.header
-    a.header__logo.logo(href='#')
-      img.logo__image(src='img/icons/logo-image-only.svg', alt='логотип Тайпотеки')
-      span.logo__name Типотека
-    nav.header__nav
-      ul.header__nav-list
-        li.header__list-item
-          a.header__popup(href='#') Регистрация
-        li.header__list-item
-          a.header__enter(href='#') Вход с паролем
-    a.header__search.button.button--search(href='#', aria-label='поиск по сайту')
+extends ./common/wrappers/default
+
+block main
   main
     h1.visually-hidden Регистрация пользователя
     section
@@ -26,22 +8,22 @@ link(rel='stylesheet', href='css/style.min.css')
         a.popup__button.button.button--popup-close(aria-label='Закрыть окно') Закрыть окно
         h2.popup__title Регистрация
         .popup__form.popup__form--active.form.form--register
-          form(action='#', method='get')
+          form(action='#' method='get')
             .form__field
               label
-                input(type='email', name='email', placeholder='Электронная почта', required)
+                input(type='email' name='email' placeholder='Электронная почта', required)
             .form__field
               label
-                input(type='text', name='name', placeholder='Имя', required)
+                input(type='text' name='name' placeholder='Имя', required)
             .form__field
               label
-                input(type='text', name='surname', placeholder='Фамилия')
+                input(type='text' name='surname' placeholder='Фамилия')
             .form__field
               label
-                input(type='password', name='password', placeholder='Пароль', required)
+                input(type='password' name='password' placeholder='Пароль', required)
             .form__field
               label
-                input(type='password', name='repeat-password', placeholder='Повтор пароля', required)
+                input(type='password' name='repeat-password' placeholder='Повтор пароля', required)
             .form__validation-error
               p.form__error-message При регистрации произошли ошибки:
               ul.form__errors
@@ -49,15 +31,8 @@ link(rel='stylesheet', href='css/style.min.css')
                 li.form__error Фамилия не должна быть смешной
             .form__image-loader
               a.form__avatar.avatar
-                img(src='img/icons/smile.svg', alt='аватар пользователя')
+                img(src='img/icons/smile.svg' alt='аватар пользователя')
               label
-                input.visually-hidden(type='file', name='upload')
+                input.visually-hidden(type='file' name='upload')
                 | Загрузить фото профиля
             button.form__submit-btn.form__submit-btn--register.button.button--colored(type='submit') Зарегистрироваться
-  footer.footer
-    a.footer__copyright(href='#', aria-label='HTMLAcademy')
-      img(src='img/icons/HTMLAcademyLogo.svg', width='112', height='50', alt='HTMLAcademy')
-    span.footer__dot
-    p.footer__text Типотека, 2019
-script(src='js/vendor.js')
-script(src='js/main.js')

@@ -1,30 +1,6 @@
-meta(charset='utf-8')
-meta(name='viewport', content='width=device-width,initial-scale=1')
-meta(name='description', content='Личный блог Типотека')
-meta(http-equiv='X-UA-Compatible', content='ie=edge')
-title Типотека
-link(rel='preload', href='./fonts/Inter-Regular.woff2', as='font', crossorigin='anonymous')
-link(rel='preload', href='./fonts/Inter-Medium.woff2', as='font', crossorigin='anonymous')
-link(rel='preload', href='./fonts/SFProDisplay-Regular.woff2', as='font', crossorigin='anonymous')
-link(rel='stylesheet', href='css/style.min.css')
-.wrapper.wrapper--nobackground
-  header.header
-    a.header__logo.logo(href='#')
-      img.logo__image(src='img/icons/logo-image-only.svg', alt='логотип Тайпотеки')
-      span.logo__name Типотека
-    button.button.button--colored.header__button-new Новая запись
-    .header__dropdown
-      a.button.button--burger.header__burger(href='#') Открыть меню
-      ul.navigation.header__navigation
-        li.navigation__item
-          a(href='main.html') Пункт меню
-        li.navigation__item
-          a(href='main.html') Пункт меню
-        li.navigation__item
-          a(href='main.html') Пункт меню
-        li.navigation__item
-          a(href='main.html') Пункт меню
-    a.header__search.button.button--search(href='#', aria-label='поиск по сайту')
+extends ./common/wrappers/nobackground
+
+block main
   main.main-page.main-page--padding
     section.main-page__notes.notes
       h1.notes__title Мои записи
@@ -54,10 +30,3 @@ link(rel='stylesheet', href='css/style.min.css')
           a.notes__item-text(href='#') Facebook разрешит пользователям копировать фотографии из соцсети в «Google Фото»
           button.notes__button.button.button--close-item(type='button')
             span.visually-hidden Закрыть строку списка
-  footer.footer
-    a.footer__copyright(href='#', aria-label='HTMLAcademy')
-      img(src='img/icons/HTMLAcademyLogo.svg', width='112', height='50', alt='HTMLAcademy')
-    span.footer__dot
-    p.footer__text Типотека, 2019
-script(src='js/vendor.js')
-script(src='js/main.js')

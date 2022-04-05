@@ -1,24 +1,6 @@
-meta(charset='utf-8')
-meta(name='viewport', content='width=device-width,initial-scale=1')
-meta(name='description', content='Личный блог Типотека')
-meta(http-equiv='X-UA-Compatible', content='ie=edge')
-title Типотека
-link(rel='preload', href='./fonts/Inter-Regular.woff2', as='font', crossorigin='anonymous')
-link(rel='preload', href='./fonts/Inter-Medium.woff2', as='font', crossorigin='anonymous')
-link(rel='preload', href='./fonts/SFProDisplay-Regular.woff2', as='font', crossorigin='anonymous')
-link(rel='stylesheet', href='css/style.min.css')
-.wrapper
-  header.header
-    a.header__logo.logo(href='#')
-      img.logo__image(src='img/icons/logo-image-only.svg', alt='логотип Тайпотеки')
-      span.logo__name Типотека
-    nav.header__nav
-      ul.header__nav-list
-        li.header__list-item
-          a.header__popup(href='#') Регистрация
-        li.header__list-item
-          a.header__enter(href='#') Вход с паролем
-    a.header__search.button.button--search(href='#', aria-label='поиск по сайту')
+extends ./common/wrappers/default
+
+block main
   main
     h1.visually-hidden Регистрация пользователя
     section
@@ -26,19 +8,12 @@ link(rel='stylesheet', href='css/style.min.css')
         a.popup__button.button.button--popup-close(aria-label='Закрыть окно') Закрыть окно
         h2.popup__title Войти
         .popup__form.form.form--log-in
-          form(action='#', method='get')
+          form(action='#' method='get')
             .form__field
               label
-                input(type='email', name='email', placeholder='Электронная почта', required)
+                input(type='email' name='email' placeholder='Электронная почта', required)
             .form__field
               label
-                input(type='password', name='password', placeholder='Пароль', required)
+                input(type='password' name='password' placeholder='Пароль', required)
             p.form__error-message Некоторая ошибка произошла, беда!
             button.form__submit-btn.form__submit-btn--log-in.button.button--colored(type='submit') Войти
-  footer.footer
-    a.footer__copyright(href='#', aria-label='HTMLAcademy')
-      img(src='img/icons/HTMLAcademyLogo.svg', width='112', height='50', alt='HTMLAcademy')
-    span.footer__dot
-    p.footer__text Типотека, 2019
-script(src='js/vendor.js')
-script(src='js/main.js')

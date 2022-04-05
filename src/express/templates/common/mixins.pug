@@ -1,0 +1,18 @@
+mixin statcss(path ,href)
+    link(
+    rel="stylesheet"
+    href=path + href
+    )
+
+mixin statjs(path, href)
+    script(
+    src=path + href
+    type="text/javascript"
+    )
+
+mixin statfont(path, href)    
+    link(rel="preload"
+    href=path + href
+    as="font"
+    crossorigin="anonymous"
+    )

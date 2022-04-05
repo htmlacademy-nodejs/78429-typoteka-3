@@ -1,37 +1,13 @@
-meta(charset='utf-8')
-meta(name='viewport', content='width=device-width,initial-scale=1')
-meta(name='description', content='Личный блог Типотека')
-meta(http-equiv='X-UA-Compatible', content='ie=edge')
-title Типотека
-link(rel='preload', href='./fonts/Inter-Regular.woff2', as='font', crossorigin='anonymous')
-link(rel='preload', href='./fonts/Inter-Medium.woff2', as='font', crossorigin='anonymous')
-link(rel='preload', href='./fonts/SFProDisplay-Regular.woff2', as='font', crossorigin='anonymous')
-link(rel='stylesheet', href='css/style.min.css')
-.wrapper.wrapper--nobackground
-  header.header
-    a.header__logo.logo(href='#')
-      img.logo__image(src='img/icons/logo-image-only.svg', alt='логотип Тайпотеки')
-      span.logo__name Типотека
-    button.button.button--colored.header__button-new Новая запись
-    .header__dropdown
-      a.button.button--burger.header__burger(href='#') Открыть меню
-      ul.navigation.header__navigation
-        li.navigation__item
-          a(href='main.html') Пункт меню
-        li.navigation__item
-          a(href='main.html') Пункт меню
-        li.navigation__item
-          a(href='main.html') Пункт меню
-        li.navigation__item
-          a(href='main.html') Пункт меню
-    a.header__search.button.button--search(href='#', aria-label='поиск по сайту')
+extends ./common/wrappers/nobackground
+
+block main
   main.main-page.main-page--padding
     section.main-page__publication.publication
       h1.publication__title Комментарии
       ul.publication__list
         li.publication__list-item
           .publication__header
-            img.publication__list-image(src='img/avatar-small-2.png', width='20', height='20', alt='Аватар пользователя')
+            img.publication__list-image(src='img/avatar-small-2.png' width='20' height='20' alt='Аватар пользователя')
             b.publication__list-name Александр Петров
             time.publication__item-time(datetime='2019-03-21T20:33') 21.03.2019, 20:33
           a.publication__item-text(href='#') Главреды «Дождя», Forbes и других СМИ попросили Роскомнадзор разъяснить штрафы за ссылки на сайты.
@@ -40,7 +16,7 @@ link(rel='stylesheet', href='css/style.min.css')
             span.visually-hidden Закрыть строку списка
         li.publication__list-item
           .publication__header
-            img.publication__list-image(src='img/avatar-small-2.png', width='20', height='20', alt='Аватар пользователя')
+            img.publication__list-image(src='img/avatar-small-2.png' width='20' height='20' alt='Аватар пользователя')
             b.publication__list-name Александр Петров
             time.publication__item-time(datetime='2019-03-21T20:33') 21.03.2019, 20:33
           a.publication__item-text(href='#') Главреды «Дождя», Forbes и других СМИ попросили Роскомнадзор разъяснить штрафы за ссылки на сайты.
@@ -49,7 +25,7 @@ link(rel='stylesheet', href='css/style.min.css')
             span.visually-hidden Закрыть строку списка
         li.publication__list-item
           .publication__header
-            img.publication__list-image(src='img/avatar-small-2.png', width='20', height='20', alt='Аватар пользователя')
+            img.publication__list-image(src='img/avatar-small-2.png' width='20' height='20' alt='Аватар пользователя')
             b.publication__list-name Александр Петров
             time.publication__item-time(datetime='2019-03-21T20:33') 21.03.2019, 20:33
           a.publication__item-text(href='#') Главреды «Дождя», Forbes и других СМИ попросили Роскомнадзор разъяснить штрафы за ссылки на сайты.
@@ -58,7 +34,7 @@ link(rel='stylesheet', href='css/style.min.css')
             span.visually-hidden Закрыть строку списка
         li.publication__list-item
           .publication__header
-            img.publication__list-image(src='img/avatar-small-2.png', width='20', height='20', alt='Аватар пользователя')
+            img.publication__list-image(src='img/avatar-small-2.png' width='20' height='20' alt='Аватар пользователя')
             b.publication__list-name Александр Петров
             time.publication__item-time(datetime='2019-03-21T20:33') 21.03.2019, 20:33
           a.publication__item-text(href='#') Главреды «Дождя», Forbes и других СМИ попросили Роскомнадзор разъяснить штрафы за ссылки на сайты.
@@ -67,7 +43,7 @@ link(rel='stylesheet', href='css/style.min.css')
             span.visually-hidden Закрыть строку списка
         li.publication__list-item
           .publication__header
-            img.publication__list-image(src='img/avatar-small-2.png', width='20', height='20', alt='Аватар пользователя')
+            img.publication__list-image(src='img/avatar-small-2.png' width='20' height='20' alt='Аватар пользователя')
             b.publication__list-name Александр Петров
             time.publication__item-time(datetime='2019-03-21T20:33') 21.03.2019, 20:33
           a.publication__item-text(href='#') Главреды «Дождя», Forbes и других СМИ попросили Роскомнадзор разъяснить штрафы за ссылки на сайты.
@@ -76,7 +52,7 @@ link(rel='stylesheet', href='css/style.min.css')
             span.visually-hidden Закрыть строку списка
         li.publication__list-item
           .publication__header
-            img.publication__list-image(src='img/avatar-small-2.png', width='20', height='20', alt='Аватар пользователя')
+            img.publication__list-image(src='img/avatar-small-2.png' width='20' height='20' alt='Аватар пользователя')
             b.publication__list-name Александр Петров
             time.publication__item-time(datetime='2019-03-21T20:33') 21.03.2019, 20:33
           a.publication__item-text(href='#') Главреды «Дождя», Forbes и других СМИ попросили Роскомнадзор разъяснить штрафы за ссылки на сайты.
@@ -85,17 +61,10 @@ link(rel='stylesheet', href='css/style.min.css')
             span.visually-hidden Закрыть строку списка
         li.publication__list-item.publication__list-item--last
           .publication__header
-            img.publication__list-image(src='img/avatar-small-2.png', width='20', height='20', alt='Аватар пользователя')
+            img.publication__list-image(src='img/avatar-small-2.png' width='20' height='20' alt='Аватар пользователя')
             b.publication__list-name Александр Петров
             time.publication__item-time(datetime='2019-03-21T20:33') 21.03.2019, 20:33
           a.publication__item-text(href='#') Главреды «Дождя», Forbes и других СМИ попросили Роскомнадзор разъяснить штрафы за ссылки на сайты.
           p.publication__text-strong Игровая студия Playrix из Вологды потратила более $100 млн на покупку конкурентов в 2018 году
           button.publication__button.button.button--close-item(type='button')
             span.visually-hidden Закрыть строку списка
-  footer.footer
-    a.footer__copyright(href='#', aria-label='HTMLAcademy')
-      img(src='img/icons/HTMLAcademyLogo.svg', width='112', height='50', alt='HTMLAcademy')
-    span.footer__dot
-    p.footer__text Типотека, 2019
-script(src='js/vendor.js')
-script(src='js/main.js')
