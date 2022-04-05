@@ -16,3 +16,4 @@ build/
 
 # etc
 mock.json
+.env

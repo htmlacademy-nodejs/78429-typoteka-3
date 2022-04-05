@@ -1,7 +1,10 @@
 'use strict';
 
-const http = require(`http`);
+const express = require(`express`);
+const apiRouter = require(`./apiRouter`);
+const bodyParser = require(`body-parser`);
 const fs = require(`fs`).promises;
+const dotenv = require(`dotenv`);
 const path = require(`path`);
 const rootPath = process.cwd();
 const {program} = require(`commander`);
@@ -10,13 +13,14 @@ const dayjs = require(`dayjs`);
 const dayjsRandom = require(`dayjs-random`);
 const chalk = require(`chalk`);
 const plural = require(`plural-ru`);
+const {randomInteger} = require(`../helpers/common`);
 const log = console.log;
 dayjs.extend(dayjsRandom);
 
-const randomInteger = (min, max) => {
-  let rand = min + Math.random() * (max + 1 - min);
-  return Math.floor(rand);
-};
+dotenv.config({path: path.join(__dirname, `../..`, process.env.NODE_ENV === `prod` ? `.env.prod` : `.env`)});
+
+const app = express();
+app.use(bodyParser.json());
 
 const getMockData = async (fileName) => {
   const filePath = path.join(`./data/`, fileName);
@@ -89,54 +93,6 @@ const generateMock = async (count) => {
   }
 };
 
-const HttpCode = {
-  OK: 200,
-  NOT_FOUND: 404,
-  INTERNAL_SERVER_ERROR: 500,
-  FORBIDDEN: 403,
-  UNAUTHORIZED: 401,
-};
-
-
-const sendResponse = (res, statusCode, message) => {
-  const template = `
-    <!Doctype html>
-      <html lang="ru">
-      <head>
-        <title>With love from Node</title>
-      </head>
-      <body>${message}</body>
-    </html>`.trim();
-
-  res.writeHead(statusCode, {
-    'Content-Type': `text/html; charset=UTF-8`,
-  });
-
-  res.end(template);
-};
-
-const onClientConnect = async (req, res) => {
-  const notFoundMessageText = `Not found`;
-
-  switch (req.url) {
-    case `/`:
-      try {
-        const fileContent = await fs.readFile(`mock.json`);
-        const mocks = JSON.parse(fileContent);
-        const message = mocks.map((post) => `<li>${post.title}</li>`).join(``);
-        sendResponse(res, HttpCode.OK, `<ul>${message}</ul>`);
-      } catch (err) {
-        sendResponse(res, HttpCode.NOT_FOUND, notFoundMessageText);
-      }
-
-      break;
-    default:
-      sendResponse(res, HttpCode.NOT_FOUND, notFoundMessageText);
-      break;
-  }
-};
-
-
 program
   .option(`-s, --server [port]`)
   .option(`--version`)
@@ -149,19 +105,13 @@ program.parse(process.argv);
 const options = program.opts();
 
 if (options.server) {
-  if (typeof options.server === `boolean` && options.server) {
-    options.server = 3000;
-  }
-  const port = options.server;
-  http.createServer(onClientConnect)
-    .listen(port)
-    .on(`listening`, () => {
-      console.info(chalk.green(`Ожидаю соединений на ${port}`));
-    })
-    .on(`error`, (err) => {
-      console.error(chalk.red(`Ошибка при создании сервера: ${err}`));
-    });
+  const port = process.env.API_PORT;
+  app.use(`/api`, apiRouter);
+  app.listen(port, () =>
+    log(chalk.blue(`API сервер запущен на порту: ${port}`))
+  );
 }
+
 
 if (options.version) {
   log(chalk.blue(packageData.version));
