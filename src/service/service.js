@@ -1,13 +1,13 @@
 'use strict';
 
 const express = require(`express`);
-const apiRouter = require(`./apiRouter`);
+const apiRouter = require(`./api-router`);
 const bodyParser = require(`body-parser`);
 const fs = require(`fs`).promises;
 const dotenv = require(`dotenv`);
 const path = require(`path`);
-const rootPath = process.cwd();
 const {program} = require(`commander`);
+const rootPath = process.cwd();
 const packageData = require(`${rootPath}/package.json`);
 const dayjs = require(`dayjs`);
 const dayjsRandom = require(`dayjs-random`);
@@ -20,7 +20,6 @@ dayjs.extend(dayjsRandom);
 dotenv.config({path: path.join(__dirname, `../..`, process.env.NODE_ENV === `prod` ? `.env.prod` : `.env`)});
 
 const app = express();
-app.use(bodyParser.json());
 
 const getMockData = async (fileName) => {
   const filePath = path.join(`./data/`, fileName);
@@ -106,6 +105,7 @@ const options = program.opts();
 
 if (options.server) {
   const port = process.env.API_PORT;
+  app.use(bodyParser.json());
   app.use(`/api`, apiRouter);
   app.listen(port, () =>
     log(chalk.blue(`API сервер запущен на порту: ${port}`))
