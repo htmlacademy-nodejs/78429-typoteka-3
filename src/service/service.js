@@ -6,25 +6,26 @@ const bodyParser = require(`body-parser`);
 const fs = require(`fs`).promises;
 const dotenv = require(`dotenv`);
 const path = require(`path`);
-const {program} = require(`commander`);
+const { program } = require(`commander`);
 const rootPath = process.cwd();
 const packageData = require(`${rootPath}/package.json`);
 const dayjs = require(`dayjs`);
 const dayjsRandom = require(`dayjs-random`);
 const chalk = require(`chalk`);
+const { nanoid } = require(`nanoid`);
 const plural = require(`plural-ru`);
-const {randomInteger} = require(`../helpers/common`);
+const { randomInteger } = require(`../helpers/common`);
 const log = console.log;
 dayjs.extend(dayjsRandom);
 
-dotenv.config({path: path.join(__dirname, `../..`, process.env.NODE_ENV === `prod` ? `.env.prod` : `.env`)});
+dotenv.config({ path: path.join(__dirname, `../..`, process.env.NODE_ENV === `prod` ? `.env.prod` : `.env`) });
 
 const app = express();
 
 const getMockData = async (fileName) => {
   const filePath = path.join(`./data/`, fileName);
   try {
-    const data = await fs.readFile(filePath, {encoding: `utf-8`});
+    const data = await fs.readFile(filePath, { encoding: `utf-8` });
     return data.split(`\r\n`);
   } catch (err) {
     return program.error(chalk.red(err));
@@ -52,6 +53,7 @@ const generateMock = async (count) => {
   const titles = await getMockData(`titles.txt`);
   const sentences = await getMockData(`sentences.txt`);
   const сategories = await getMockData(`categories.txt`);
+  const sentencesForComments = await getMockData(`comments.txt`);
 
   if (/^[0-9]+$/.test(count)) {
     if (count < 1) {
@@ -65,6 +67,7 @@ const generateMock = async (count) => {
 
   let publications = [];
   for (let x = 0; x < count; x++) {
+    const id = nanoid(count);
     const title = titles[randomInteger(0, titles.length - 1)];
     const announce = sentences[randomInteger(0, sentences.length)];
     const fullText = Array.from(Array(5).keys()).reduce(((text) => {
@@ -74,13 +77,24 @@ const generateMock = async (count) => {
 
     const createdDate = dayjs.between(dayjs().subtract(3, `month`), dayjs()).format(`YYYY-MM-DD hh:mm:ss`);
     const сategory = сategories[randomInteger(0, сategories.length - 1)];
+    const maxComments = 10;
+    const comments = Array.from(Array(randomInteger(1, maxComments)).keys()).map((() => {
+      return {
+        id: nanoid(count),
+        text: sentencesForComments[randomInteger(0, sentencesForComments.length - 1)]
+      };
+    }), ``);
+
+    console.info(comments)
 
     publications.push({
+      id,
       title,
       announce,
       fullText,
       createdDate,
-      сategory
+      сategory,
+      comments
     });
   }
 
