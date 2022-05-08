@@ -4,7 +4,7 @@
   "description": "Типотека",
   "main": "./src/service/service.js",
   "scripts": {
-    "start-front-server": "nodemon ./src/express.js",
+    "start-front-server": "nodemon ./src/express/express.js",
     "start:dev": "nodemon ./src/service/service.js --server",
     "generate": "node ./src/service/service.js --generate 20",
     "help": "node ./src/service/service.js --help",
