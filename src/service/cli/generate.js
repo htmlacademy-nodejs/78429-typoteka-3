@@ -26,35 +26,19 @@ const getMockData = async (fileName) => {
 };
 
 const checkMockCount = (count) => {
-  const {DEFAULT_COUNT, MOCK_MAX_COUNT} = MockConf;
-
-  if (!count) {
-    count = DEFAULT_COUNT;
-  } else {
-    if (count > MOCK_MAX_COUNT) {
-      log(chalk.red(`Не больше ${MOCK_MAX_COUNT} публикаций`));
-      return false;
-    }
-    if (Number.isInteger(count)) {
-      if (count < 1) {
-        count = 1;
-      }
-    } else {
-      count = 1;
-    }
-  }
-  return count;
+  const {MOCK_MAX_COUNT} = MockConf;
+  return count && Number.isInteger(count) && count <= MOCK_MAX_COUNT;
 };
 
 module.exports = {
   name: `--generate`,
   async run(count) {
     const publications = [];
+    const {DEFAULT_COUNT} = MockConf;
     const titles = await getMockData(`titles.txt`);
     const sentences = await getMockData(`sentences.txt`);
     const сategories = await getMockData(`categories.txt`);
     const sentencesForComments = await getMockData(`comments.txt`);
-
 
     const generatePublication = () => {
       const {MAX_MOUNTH_DIFF, MAX_SENTENCES, MAX_COMMENTS, DATE_FORMAT} = MockConf;
@@ -91,14 +75,18 @@ module.exports = {
     };
 
     if (checkMockCount(count)) {
+      if (count <= 0) {
+        count = DEFAULT_COUNT;
+      }
       Array.from({length: count}, () => generatePublication());
-
       try {
         await fs.writeFile(`mocks.json`, JSON.stringify(publications));
         log(chalk.green(`Успешно сгенерировано ${count} ${plural(count, `публикация`, `публикации`, `публикаций`)}`));
       } catch (err) {
         log(chalk.red(err));
       }
+    } else {
+      log(chalk.red(`Ошибка валидации count`));
     }
   },
 };
