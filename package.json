@@ -4,9 +4,10 @@
   "description": "Типотека",
   "main": "./src/service/service.js",
   "scripts": {
-    "start-front-server": "nodemon ./src/express.js",
-    "start": "nodemon ./src/service/service.js --server",
+    "start-front-server": "nodemon ./src/express/express.js",
+    "start:dev": "nodemon ./src/service/service.js --server",
     "generate": "node ./src/service/service.js --generate 20",
+    "help": "node ./src/service/service.js --help",
     "test": "npm run eslint",
     "eslint": "eslint --ext .js src/"
   },
@@ -33,6 +34,7 @@
     "express": "4.17.3",
     "express-http-proxy": "^1.6.3",
     "inquirer": "^8.2.1",
+    "nanoid": "3.3.4",
     "nodemon": "^2.0.15",
     "plural-ru": "^2.0.2",
     "pug": "3.0.2"

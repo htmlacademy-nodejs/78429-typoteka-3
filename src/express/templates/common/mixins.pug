@@ -1,18 +1,18 @@
-mixin statcss(path ,href)
+mixin statcss(path)
     link(
     rel="stylesheet"
-    href=path + href
+    href=path
     )
 
-mixin statjs(path, href)
+mixin statjs(path)
     script(
-    src=path + href
+    src=path
     type="text/javascript"
     )
 
-mixin statfont(path, href)    
+mixin statfont(path)    
     link(rel="preload"
-    href=path + href
+    href=path
     as="font"
     crossorigin="anonymous"
     )
