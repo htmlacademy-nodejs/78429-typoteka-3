@@ -3,6 +3,15 @@
 const USER_ARGV_INDEX = 2;
 const MAX_ID_LENGTH = 6;
 
+const MockConf = {
+  DEFAULT_COUNT: 20,
+  MAX_COUNT: 1000,
+  MAX_MOUNTH_DIFF: 3,
+  MAX_COMMENTS: 4,
+  MAX_SENTENCES: 5,
+  DATE_FORMAT: `YYYY-MM-DD hh:mm:ss`
+};
+
 const HttpCode = {
   OK: 200,
   CREATED: 201,
@@ -19,6 +28,7 @@ const Env = {
 };
 
 module.exports = {
+  MockConf,
   USER_ARGV_INDEX,
   HttpCode,
   MAX_ID_LENGTH,

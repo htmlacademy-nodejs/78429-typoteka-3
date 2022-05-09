@@ -10,7 +10,7 @@ const TEMPLATES_DIR = `/templates`;
 const commonRoutes = require(`./routes/common`);
 const articlesRoutes = require(`./routes/articles`);
 const myRoutes = require(`./routes/my`);
-dotenv.config({ path: path.join(__dirname, `../..`, process.env.NODE_ENV === `prod` ? `.env.prod` : `.env`) });
+dotenv.config({path: path.join(__dirname, `../..`, process.env.NODE_ENV === `prod` ? `.env.prod` : `.env`)});
 
 const app = express();
 
