@@ -32,5 +32,5 @@ module.exports = {
   USER_ARGV_INDEX,
   HttpCode,
   MAX_ID_LENGTH,
-  Env
+  Env,
 };

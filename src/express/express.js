@@ -32,6 +32,8 @@ app.set(`view engine`, `pug`);
 
 app.use((req, res) => res.status(404).render(`404`));
 
+console.info(process.env.CLIENT_PORT);
+
 app.listen(process.env.CLIENT_PORT, () =>
   console.log(`Сервер запущен на порту: ${process.env.CLIENT_PORT}`)
 );
