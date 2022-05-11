@@ -6,6 +6,7 @@ const path = require(`path`);
 const {program} = require(`commander`);
 const dayjs = require(`dayjs`);
 const dayjsRandom = require(`dayjs-random`);
+
 dayjs.extend(dayjsRandom);
 
 dotenv.config({path: path.join(__dirname, `../..`, process.env.NODE_ENV === `prod` ? `.env.prod` : `.env`)});

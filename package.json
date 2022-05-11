@@ -5,10 +5,12 @@
   "main": "./src/service/service.js",
   "scripts": {
     "start-front-server": "nodemon ./src/express/express.js",
-    "start:dev": "nodemon ./src/service/service.js --server",
+    "start": "cross-env LOG_LEVEL=error NODE_ENV=production nodemon ./src/service/service.js --server",
+    "start::debug": "cross-env LOG_LEVEL=debug NODE_ENV=development nodemon ./src/service/service.js --server",
     "generate": "node ./src/service/service.js --generate 20",
     "help": "node ./src/service/service.js --help",
-    "test": "npm run eslint",
+    "test": "npm run eslint && npm run jest",
+    "jest": "jest",
     "eslint": "eslint --ext .js src/"
   },
   "repository": {
@@ -28,16 +30,21 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^9.1.0",
+    "cross-env": "^7.0.3",
     "dayjs": "^1.11.0",
     "dayjs-random": "^1.0.1",
     "dotenv": "^16.0.0",
     "express": "4.17.3",
     "express-http-proxy": "^1.6.3",
     "inquirer": "^8.2.1",
+    "jest": "^28.1.0",
     "nanoid": "3.3.4",
     "nodemon": "^2.0.15",
+    "pino": "^7.11.0",
+    "pino-pretty": "^7.6.1",
     "plural-ru": "^2.0.2",
-    "pug": "3.0.2"
+    "pug": "3.0.2",
+    "supertest": "^6.2.3"
   },
   "eslintIgnore": [
     "src/express/public"
