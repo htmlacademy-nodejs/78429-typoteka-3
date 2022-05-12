@@ -10,9 +10,16 @@ const TEMPLATES_DIR = `/templates`;
 const commonRoutes = require(`./routes/common`);
 const articlesRoutes = require(`./routes/articles`);
 const myRoutes = require(`./routes/my`);
-dotenv.config({path: path.join(__dirname, `../..`, process.env.NODE_ENV === `prod` ? `.env.prod` : `.env`)});
+let bodyParser = require(`body-parser`);
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+dotenv.config({path: path.join(__dirname, `../..`, process.env.NODE_ENV === `prod` ? `.env.prod` : `.env`)});
+
 
 const apiProxy = proxy(`localhost:${process.env.API_PORT}/`, {
   proxyReqPathResolver: (req) => url.parse(req.baseUrl).path

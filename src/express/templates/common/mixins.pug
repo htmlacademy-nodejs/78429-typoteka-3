@@ -1,3 +1,18 @@
+-function prettyDate(dateString){
+    -var monthNames = [ "янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек" ];
+
+    -var date = new Date(dateString);
+    
+    -var d = date.getDate();
+    -var m = monthNames[date.getMonth()];
+    -var y = date.getFullYear();
+
+    -var hour = date.getHours();
+    -var minutes = date.getMinutes();
+
+    -return `${d} ${m} ${y} в ${hour}:${minutes}`;
+    -}
+
 mixin statcss(path)
     link(
     rel="stylesheet"

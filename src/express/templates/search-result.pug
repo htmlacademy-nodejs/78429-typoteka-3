@@ -1,0 +1,22 @@
+extends ./common/wrappers/color
+
+block main
+  main
+    section.search-page
+      .search-page__wrapper
+        h1 Поиск
+        .search.search-page__form
+          form(action='/search', method='get')
+            label
+              input(type='text', name='query', placeholder='Что ищем?', value='Путешествия')
+            button.search__button.button.button--transparent(type='submit') Найти
+          if results.length > 0
+            each result in results
+            .search__result
+              time.search__date(datetime=`${result.createdDate}`) #{prettyDate(result.createdDate)}
+              a.search__link
+                | #{result.title}
+                b #{result.category}
+                | #{result.announce}
+        if results.length == 0
+          p.search-page__empty Ничего не нашлось
