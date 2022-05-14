@@ -1,12 +1,12 @@
 'use strict';
 
-const { Router } = require(`express`);
+const {Router} = require(`express`);
 const api = require(`../api`).getAPI();
 const commonRouter = new Router();
 
 commonRouter.get(`/`, async (req, res) => {
   const articles = await api.getArticles();
-  res.render(`main`, { articles });
+  res.render(`main`, {articles});
 });
 
 commonRouter.get(`/register`, (req, res) => res.render(`sign-up`));

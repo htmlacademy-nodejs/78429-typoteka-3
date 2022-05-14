@@ -91,7 +91,7 @@ block main
                 a.preview__breadcrumbs-link(href='#') #{article.сategory}
             .preview__background
               img.preview__background-image(src='img/skyscraper@1x.jpg' width='460' height='240' srcset='img/skyscraper@1x.jpg, img/skyscraper@2x.jpg 2x' alt='Фотография небоскреба')
-            time.preview__time(datetime=`${article.createdDate}`) #{prettyDate(article.createdDate)}
+            time.preview__time(datetime=`${article.createdDate}`) #{article.fotmattedDate}
             h3.preview__name
               a.preview__name-link(href='#') #{article.title}
             p.preview__text #{article.announce}

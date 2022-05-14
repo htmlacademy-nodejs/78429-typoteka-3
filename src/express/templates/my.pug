@@ -7,7 +7,7 @@ block main
       ul.notes__list
         each article, articleIndex in articles
           li.notes__list-item
-            time.notes__item-time(datetime=`${article.createdDate}`) #{prettyDate(article.createdDate)}
+            time.notes__item-time(datetime=`${article.createdDate}`) #{article.fotmattedDate}
             a.notes__item-text(href='#') #{article.title}
             button.notes__button.button.button--close-item(type='button')
               span.visually-hidden Закрыть строку списка

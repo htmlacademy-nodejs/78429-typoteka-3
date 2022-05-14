@@ -11,7 +11,7 @@ myRouter.get(`/`, async (req, res) => {
 
 myRouter.get(`/comments`, async (req, res) => {
   const articles = await api.getArticles();
-  const comments = articles.map((item)=>item.comments).flat();
+  const comments = articles.flatMap((item)=>item.comments);
   res.render(`comments`, {comments});
 });
 

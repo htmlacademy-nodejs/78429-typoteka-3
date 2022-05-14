@@ -2,6 +2,12 @@
 
 const {nanoid} = require(`nanoid`);
 const {MAX_ID_LENGTH} = require(`../../constants`);
+const {MockConf} = require(`../../constants`);
+const dayjs = require(`dayjs`);
+require(`dayjs/locale/ru`);
+const dayjsRandom = require(`dayjs-random`);
+dayjs.locale(`ru`);
+dayjs.extend(dayjsRandom);
 
 class ArticleService {
   constructor(articles) {
@@ -9,8 +15,13 @@ class ArticleService {
   }
 
   create(article) {
+    const {FORMATTED_DATE_FORMAT} = MockConf;
     const newArticle = Object.assign(
-        {id: nanoid(MAX_ID_LENGTH), comments: []},
+        {
+          id: nanoid(MAX_ID_LENGTH),
+          comments: [],
+          fotmattedDate: dayjs(article.createdDate).format(FORMATTED_DATE_FORMAT)
+        },
         article
     );
 

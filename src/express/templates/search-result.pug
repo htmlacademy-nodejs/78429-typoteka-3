@@ -13,7 +13,7 @@ block main
           if results.length > 0
             each result in results
             .search__result
-              time.search__date(datetime=`${result.createdDate}`) #{prettyDate(result.createdDate)}
+              time.search__date(datetime=`${result.createdDate}`) #{article.fotmattedDate}
               a.search__link
                 | #{result.title}
                 b #{result.category}

@@ -33,6 +33,7 @@ app.use(`/articles`, articlesRoutes);
 app.use(`/my`, myRoutes);
 app.use(`/`, commonRoutes);
 
+
 app.use(express.static(__dirname + PUBLIC_DIR));
 app.set(`views`, (__dirname + TEMPLATES_DIR));
 app.set(`view engine`, `pug`);
