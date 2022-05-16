@@ -9,7 +9,8 @@ const MockConf = {
   MAX_MOUNTH_DIFF: 3,
   MAX_COMMENTS: 4,
   MAX_SENTENCES: 5,
-  DATE_FORMAT: `YYYY-MM-DD hh:mm:ss`
+  DATE_FORMAT: `YYYY-MM-DD hh:mm:ss`,
+  FORMATTED_DATE_FORMAT: `DD MMM YYYY в HH:mm`
 };
 
 const HttpCode = {

@@ -5,29 +5,31 @@ const chalk = require(`chalk`);
 const {nanoid} = require(`nanoid`);
 const dotenv = require(`dotenv`);
 const path = require(`path`);
-const dayjs = require(`dayjs`);
-const dayjsRandom = require(`dayjs-random`);
 const plural = require(`plural-ru`);
 const log = console.log;
 const {MockConf} = require(`../../constants`);
+const dayjs = require(`dayjs`);
+require(`dayjs/locale/ru`);
+const dayjsRandom = require(`dayjs-random`);
+dayjs.locale(`ru`);
 dayjs.extend(dayjsRandom);
 
 dotenv.config({path: path.join(__dirname, `../..`, process.env.NODE_ENV === `prod` ? `.env.prod` : `.env`)});
 
 
-const getMockData = async (fileName) => {
+const getTextData = async (fileName) => {
   const filePath = path.join(`./data/`, fileName);
   try {
     const data = await fs.readFile(filePath, {encoding: `utf-8`});
-    return data.split(`\r\n`);
+    return data.split(`\n`);
   } catch (err) {
     return log(chalk.red(err));
   }
 };
 
 const checkMockCount = (count) => {
-  const {MOCK_MAX_COUNT} = MockConf;
-  return count && Number.isInteger(count) && count <= MOCK_MAX_COUNT;
+  const {MAX_COUNT} = MockConf;
+  return count && Number.isInteger(parseInt(count, 10)) && count <= MAX_COUNT;
 };
 
 module.exports = {
@@ -35,13 +37,13 @@ module.exports = {
   async run(count) {
     const publications = [];
     const {DEFAULT_COUNT} = MockConf;
-    const titles = await getMockData(`titles.txt`);
-    const sentences = await getMockData(`sentences.txt`);
-    const сategories = await getMockData(`categories.txt`);
-    const sentencesForComments = await getMockData(`comments.txt`);
+    const titles = await getTextData(`titles.txt`);
+    const sentences = await getTextData(`sentences.txt`);
+    const сategories = await getTextData(`categories.txt`);
+    const sentencesForComments = await getTextData(`comments.txt`);
 
     const generatePublication = () => {
-      const {MAX_MOUNTH_DIFF, MAX_SENTENCES, MAX_COMMENTS, DATE_FORMAT} = MockConf;
+      const {MAX_MOUNTH_DIFF, MAX_SENTENCES, MAX_COMMENTS, DATE_FORMAT, FORMATTED_DATE_FORMAT} = MockConf;
       const id = nanoid(count);
       const title = pickItem(titles);
       const announce = pickItem(sentences);
@@ -54,6 +56,7 @@ module.exports = {
         .join(` `);
 
       const createdDate = dayjs.between(dayjs().subtract(MAX_MOUNTH_DIFF, `month`), dayjs()).format(DATE_FORMAT);
+      const fotmattedDate = dayjs(createdDate).format(FORMATTED_DATE_FORMAT);
       const сategory = pickItem(сategories);
       const comments = Array.from({length: getRandomInt(1, MAX_COMMENTS)})
         .map((() => {
@@ -69,6 +72,7 @@ module.exports = {
         announce,
         fullText,
         createdDate,
+        fotmattedDate,
         сategory,
         comments
       });
