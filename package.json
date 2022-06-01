@@ -11,7 +11,7 @@
     "help": "node ./src/service/service.js --help",
     "test": "npm run eslint && npm run jest",
     "jest": "jest",
-    "eslint": "eslint --ext .js src/"
+    "eslint": "eslint --ext .js src/ --fix"
   },
   "repository": {
     "type": "git",
@@ -41,10 +41,12 @@
     "jest": "^28.1.0",
     "nanoid": "3.3.4",
     "nodemon": "^2.0.15",
+    "pg": "^8.7.3",
     "pino": "^7.11.0",
     "pino-pretty": "^7.6.1",
     "plural-ru": "^2.0.2",
     "pug": "3.0.2",
+    "sequelize": "^6.20.1",
     "supertest": "^6.2.3"
   },
   "eslintIgnore": [

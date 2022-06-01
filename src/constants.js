@@ -10,7 +10,12 @@ const MockConf = {
   MAX_COMMENTS: 4,
   MAX_SENTENCES: 5,
   DATE_FORMAT: `YYYY-MM-DD hh:mm:ss`,
-  FORMATTED_DATE_FORMAT: `DD MMM YYYY в HH:mm`
+  FORMATTED_DATE_FORMAT: `DD MMM YYYY в HH:mm`,
+};
+
+const ExitCode = {
+  error: 1,
+  success: 0,
 };
 
 const HttpCode = {
@@ -25,12 +30,13 @@ const HttpCode = {
 
 const Env = {
   DEVELOPMENT: `development`,
-  PRODUCTION: `production`
+  PRODUCTION: `production`,
 };
 
 module.exports = {
   MockConf,
   USER_ARGV_INDEX,
+  ExitCode,
   HttpCode,
   MAX_ID_LENGTH,
   Env,
