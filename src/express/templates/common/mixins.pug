@@ -16,3 +16,33 @@ mixin statfont(path)
     as="font"
     crossorigin="anonymous"
     )
+
+mixin pagination(page, totalPages, width, prefix)
+    -
+        let start = page - width;
+        let end = page + width;
+
+        if(start < 1){
+            end += 1 - start;
+            start = 1;
+        }
+
+        if(end > totalPages){
+            start -= end - totalPages;
+            end = totalPages;
+        }
+
+        if(start < 1){
+            start = 1;
+        }
+        let i = start - 1
+
+    .preview__toggle-wrapper
+        ul.preview__pagination.pagination
+            li
+                a(class=`pagination__button button button--backwards ${start > 1 ? '' : 'button--disabled'}` href=`${prefix}page=${page - 1}` aria-label='Страница назад') Назад
+            while i++ < end
+                li(class=`pagination__item ${i === page ? 'pagination__item--active' : ""}`)
+                    a(href=`${prefix}page=${i}`)= i
+            li
+                a(class=`pagination__button button button--forward ${end < totalPages ? '' : 'button--disabled'}` href=`${prefix}page=${page + 1}` aria-label='Страница вперед') Вперёд

@@ -15,7 +15,8 @@ program
   .option(`-s, --server [port]`)
   .option(`--version`)
   .option(`--help`)
-  .option(`--generate [count]`);
+  .option(`--generate [count]`)
+  .option(`--filldb [count]`);
 program.parse(process.argv);
 
 const options = program.opts();
@@ -34,4 +35,8 @@ if (options.help) {
 
 if (options.generate) {
   Cli[`--generate`].run(options.generate);
+}
+
+if (options.filldb) {
+  Cli[`--filldb`].run(options.filldb);
 }

@@ -1,12 +1,33 @@
 "use strict";
 
+const {Op} = require(`sequelize`);
+const Aliase = require(`../models/aliase`);
+
 class SearchService {
-  constructor(articles) {
-    this._articles = articles;
+  constructor(sequelize) {
+    this._Article = sequelize.models.Article;
+    this._User = sequelize.models.User;
   }
 
-  findAll(serchText) {
-    return this._articles.filter((article) => article.title.indexOf(serchText) > -1);
+  async findAll(searchText) {
+    const articles = await this._Article.findAll({
+      where: {
+        title: {
+          [Op.substring]: searchText,
+        },
+      },
+      include: [
+        Aliase.CATEGORIES,
+        {
+          model: this._User,
+          as: Aliase.USERS,
+          attributes: {
+            exclude: [`password`]
+          }
+        }],
+      order: [[`createdAt`, `DESC`]],
+    });
+    return articles.map((article) => article.get());
   }
 }
 
