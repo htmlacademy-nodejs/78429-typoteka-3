@@ -42,7 +42,7 @@ const generateComments = (amount, comments, users) => {
 };
 
 const getRandomSubArray = (array, min, max) => {
-  const start = min ? min : 1;
+  const start = min ?? 1;
   const end = max ? max : array.length - 1;
   return shuffle(array.slice()).slice(0, getRandomInt(start, end));
 };

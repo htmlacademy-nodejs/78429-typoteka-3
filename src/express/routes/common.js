@@ -5,7 +5,7 @@ const api = require(`../api`).getAPI();
 const {View} = require(`../../constants`);
 const commonRouter = new Router();
 
-const {ARTICLES_PER_PAGE, LATEST_COMMENTS_COUNT} = View;
+const {ARTICLES_PER_PAGE, LATEST_COMMENTS_COUNT, HOT_COMMENTS_COUNT} = View;
 
 commonRouter.get(`/`, async (req, res) => {
   let {page = 1} = req.query;
@@ -39,7 +39,7 @@ commonRouter.get(`/`, async (req, res) => {
     .sort((art1, art2) => {
       return art2.commentsLength - art1.commentsLength;
     })
-    .slice(0, 4);
+    .slice(0, HOT_COMMENTS_COUNT);
 
   const totalPages = Math.ceil(count / ARTICLES_PER_PAGE);
 

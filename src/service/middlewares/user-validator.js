@@ -14,11 +14,12 @@ const ErrorRegisterMessage = {
   AVATAR: `Тип изображения не поддерживается`,
 };
 
-const imageRegexp = /.*\.(jpeg|jpg|png)$/;
+const imageRegexp = /.*\.(jpeg|jpg|png)$/; // регулярка для изображения
+const nameRegexp = /[^0-9$&+,:;=?@#|'<>.^*()%!]+$/; // регулярка для имени и фамилии
 
 const nameSchema = (errorMessage) =>
   Joi.string()
-    .pattern(/[^0-9$&+,:;=?@#|'<>.^*()%!]+$/)
+    .pattern(nameRegexp)
     .required()
     .messages({
       "string.pattern.base": errorMessage,

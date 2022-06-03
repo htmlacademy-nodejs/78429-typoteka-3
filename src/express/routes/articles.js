@@ -47,9 +47,9 @@ articlesRouter.get(
         }),
       ]);
 
-      const categoryExists = categories.filter(
+      const categoryExists = categories.find(
           (category) => category.id === Number(id)
-      )[0];
+      );
 
       if (!categoryExists) {
         return res.render(`errors/404`);
