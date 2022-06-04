@@ -46,3 +46,8 @@ mixin pagination(page, totalPages, width, prefix)
                     a(href=`${prefix}page=${i}`)= i
             li
                 a(class=`pagination__button button button--forward ${end < totalPages ? '' : 'button--disabled'}` href=`${prefix}page=${page + 1}` aria-label='Страница вперед') Вперёд
+
+mixin insertErrorMessage(messages)
+    if messages
+        each message of messages
+            .server-error= message

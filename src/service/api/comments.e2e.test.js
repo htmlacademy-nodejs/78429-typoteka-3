@@ -4,8 +4,8 @@ const request = require(`supertest`);
 const Sequelize = require(`sequelize`);
 
 const initDB = require(`../lib/init-db`);
-const category = require(`./category`);
-const DataService = require(`../data-service/category`);
+const comments = require(`./comments`);
+const DataService = require(`../data-service/comments`);
 const {HttpCode} = require(`../../constants`);
 const passwordUtils = require(`../lib/password`);
 
@@ -169,168 +169,30 @@ const createAPI = async () => {
     articles: mockArticles,
     users: mockUsers,
   });
-  category(app, new DataService(mockDB));
+  comments(app, new DataService(mockDB));
   return app;
 };
 
-describe(`API возвращает список категорий`, () => {
+describe(`API возвращает список комментариев`, () => {
   let response;
-  let app;
 
   beforeAll(async () => {
-    app = await createAPI();
-    response = await request(app).get(`/category`);
+    const app = await createAPI();
+    response = await request(app).get(`/comments`);
   });
 
-  test(`Статус код 200`, () => {
-    expect(response.statusCode).toBe(HttpCode.OK);
-  });
-  test(`Возвращает 8 категорий`, () => expect(response.body.length).toBe(8));
-
-  test(`Название категорий "Программирование",
-  "Кино",
-  "Железо",
-  "Музыка",
-  "Деревья",
-  "Без рамки",
-  "IT",
-  "За жизнь"`, () =>
-    expect(response.body.map((it) => it.name)).toEqual(
-        expect.arrayContaining(mockCategories)
-    ));
+  test(`Статус код 200`, () => expect(response.statusCode).toBe(HttpCode.OK));
+  test(`Кол-во комментариев 12`, () => expect(response.body.length).toBe(12));
 });
 
-describe(`Создание категории`, () => {
-  describe(`API создает категорию`, () => {
-    let response;
-    let app;
-    const validCategory = {
-      name: `Новая категория`,
-    };
-
-    beforeAll(async () => {
-      app = await createAPI();
-      response = await request(app).post(`/category`).send(validCategory);
-    });
-
-    test(`Статус код 200`, () => {
-      expect(response.statusCode).toBe(HttpCode.OK);
-    });
-
-    test(`Возвращает созданную категорию`, () =>
-      expect(response.body.name).toBe(validCategory.name));
-  });
-
-  test(`API возвращает 400 если данные для создания категории не валидны`, async () => {
-    const app = await createAPI();
-
-    const invalidCategories = [
-      {name: `коты`},
-      {name: `   коты   `},
-      {name: `Название категории содержит больше 30 символов`},
-    ];
-
-    for (const invalidCategory of invalidCategories) {
-      await request(app)
-        .post(`/category`)
-        .send(invalidCategory)
-        .expect(HttpCode.BAD_REQUEST);
-    }
-  });
-});
-
-describe(`Изменение категории`, () => {
-  describe(`API изменяет категорию`, () => {
-    let response;
-    let app;
-    const validCategory = {
-      name: `Изменённая категория`,
-    };
-
-    beforeAll(async () => {
-      app = await createAPI();
-      response = await request(app).put(`/category/1`).send(validCategory);
-    });
-
-    test(`Статус код 200`, () => {
-      expect(response.statusCode).toBe(HttpCode.OK);
-    });
-
-    test(`Возвращает подтверждение изменения категории`, () =>
-      expect(response.body).toBeTruthy());
-  });
-
-  test(`API возвращает 200 если данные для изменения валидны`, async () => {
-    const app = await createAPI();
-
-    const validCategories = [{name: `попугаи`}, {name: `   собаки   `}];
-
-    for (const validCategory of validCategories) {
-      await request(app)
-        .put(`/category/1`)
-        .send(validCategory)
-        .expect(HttpCode.OK);
-    }
-  });
-
-  test(`API возвращает 400 если данные для изменения категории не валидны`, async () => {
-    const app = await createAPI();
-
-    const invalidCategories = [
-      {name: `коты`},
-      {name: `   коты   `},
-      {name: `Название категории содержит больше 30 символов`},
-    ];
-
-    for (const invalidCategory of invalidCategories) {
-      await request(app)
-        .put(`/category/1`)
-        .send(invalidCategory)
-        .expect(HttpCode.BAD_REQUEST);
-    }
-  });
-
-  test(`API возвращает 404 если категории не существует`, async () => {
-    const app = await createAPI();
-
-    const validCategory = {
-      name: `Валидное название`,
-    };
-
-    return request(app)
-      .put(`/category/1337`)
-      .send(validCategory)
-      .expect(HttpCode.NOT_FOUND);
-  });
-});
-
-describe(`Удаление категории`, () => {
-  let app;
+describe(`Удаление комментария`, () => {
   let response;
-  const validCategory = {
-    name: `Новая категория`,
-  };
 
   beforeAll(async () => {
-    app = await createAPI();
-    response = await request(app).post(`/category`).send(validCategory);
+    const app = await createAPI();
+    response = await request(app).delete(`/comments/1`);
   });
 
-  test(`Удаление категории возвращает 200`, () => {
-    return request(app)
-      .delete(`/category/${response.body.id}`)
-      .expect(HttpCode.OK);
-  });
-});
-
-test(`API возвращает 404 если категории не существует`, async () => {
-  const app = await createAPI();
-
-  return request(app).delete(`/category/1337`).expect(HttpCode.NOT_FOUND);
-});
-
-test(`API возвращает 400 если есть публикации с данной категорией`, async () => {
-  const app = await createAPI();
-
-  return request(app).delete(`/category/1`).expect(HttpCode.BAD_REQUEST);
+  test(`Статус код 200`, () => expect(response.statusCode).toBe(HttpCode.OK));
+  test(`Комментарий удален`, () => expect(response.body).toBeTruthy());
 });
