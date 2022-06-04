@@ -33,6 +33,12 @@ const Env = {
   PRODUCTION: `production`,
 };
 
+const View = {
+  ARTICLES_PER_PAGE: 8,
+  LATEST_COMMENTS_COUNT: 4,
+  HOT_COMMENTS_COUNT: 4
+};
+
 module.exports = {
   MockConf,
   USER_ARGV_INDEX,
@@ -40,4 +46,5 @@ module.exports = {
   HttpCode,
   MAX_ID_LENGTH,
   Env,
+  View,
 };

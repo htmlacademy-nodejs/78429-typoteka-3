@@ -1,47 +1,62 @@
-"use strict";
+'use strict';
 
-const {nanoid} = require(`nanoid`);
-const {MAX_ID_LENGTH} = require(`../../constants`);
+const Aliase = require(`../models/aliase`);
 
 class CommentService {
-  constructor(articles) {
-    this._articles = articles;
+  constructor(sequelize) {
+    this.sequelize = sequelize;
+    this._Article = sequelize.models.Article;
+    this._Comment = sequelize.models.Comment;
+    this._User = sequelize.models.User;
   }
 
-  _findArticle(articleId) {
-    return this._articles.find((article) => article.id === articleId);
+  async create(articleId, comment) {
+    return this._Comment.create({
+      articleId,
+      ...comment,
+    });
   }
 
-  create(articleId, comment) {
-    const requiredArticle = this._findArticle(articleId);
-    const newComment = {id: nanoid(MAX_ID_LENGTH), text: comment};
-    requiredArticle.comments.push(newComment);
-    return newComment;
+  async drop(id) {
+    const deletedRows = await this._Comment.destroy({
+      where: {id},
+    });
+    return !!deletedRows;
   }
 
-  drop(article, commentId) {
-    const comments = article.comments;
-    const comment = comments.find((cmnt) => cmnt.id === commentId);
+  async findOne(id) {
+    return this._Comment.findByPk(id);
+  }
 
-    if (!comment) {
-      return null;
+  async findAll({articleId, order = `ASC`, limit, includeUser = false}) {
+    let extend = {
+      attributes: [`Comment.*`]
+    };
+    if (articleId) {
+      extend.where = {articleId};
     }
-
-    article.comments = article.comments.filter((item) => item.id !== commentId);
-    return comment;
-  }
-
-  findAll(articleId) {
-    const requiredArticle = this._findArticle(articleId);
-    return requiredArticle.comments;
-  }
-
-  findOne(articleId, commentId) {
-    const requiredArticle = this._findArticle(articleId);
-    if (!requiredArticle) {
-      return requiredArticle;
+    if (limit) {
+      extend.limit = limit;
     }
-    return requiredArticle.comments.find((comment) => comment.id === commentId);
+    if (includeUser) {
+      extend.include = [
+        {
+          model: this._User,
+          as: Aliase.USERS,
+          attributes: []
+        },
+      ];
+      extend.attributes.push(
+          [this.sequelize.col(`users.firstName`), `firstName`],
+          [this.sequelize.col(`users.lastName`), `lastName`],
+          [this.sequelize.col(`users.avatar`), `avatar`]
+      );
+    }
+    return this._Comment.findAll({
+      order: [[`createdAt`, order]],
+      raw: true,
+      ...extend,
+    });
   }
 }
 
