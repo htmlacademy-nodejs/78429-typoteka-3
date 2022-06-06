@@ -97,7 +97,7 @@ articlesRouter.post(
       } catch (errors) {
         const validationMessages = prepareErrors(errors);
         const categories = await api.getCategories();
-        res.render(`edit-post`, {
+        res.render(`post-edit`, {
           user,
           categories,
           article: articleData,
@@ -115,7 +115,7 @@ articlesRouter.get(`/edit/:id`, async (req, res) => {
     api.getCategories(),
   ]);
 
-  res.render(`edit-post`, {
+  res.render(`post-edit`, {
     article,
     categories,
     id,
@@ -145,7 +145,7 @@ articlesRouter.post(
       } catch (errors) {
         const validationMessages = prepareErrors(errors);
         const categories = await api.getCategories();
-        res.render(`edit-post`, {
+        res.render(`post-edit`, {
           user,
           id,
           categories,

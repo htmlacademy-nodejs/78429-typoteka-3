@@ -5,7 +5,7 @@ block main
     section
       .popup.popup--new-publication.popup--anti
         .new-publication
-          form(action='#' method='POST')
+          form(action=`${id != null ? `/articles/edit/${id}?_csrf=${csrfToken}` : `/articles/add?_csrf=${csrfToken}`}` method='POST' enctype="multipart/form-data")
             .new-publication__header
               h1 Редактирование публикации
               .new-publication__date-form
@@ -39,3 +39,4 @@ block main
                   label
                     textarea(rows='10' name='full-text' placeholder='Полный текст публикации')
                       | #{article.fullText}
+          +insertErrorMessage(validationMessages)
