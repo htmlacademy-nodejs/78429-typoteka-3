@@ -47,7 +47,7 @@ articlesRouter.get(
         }),
       ]);
 
-      const categoryExists = categories.find(
+      const categoryExists = categories.some(
           (category) => category.id === Number(id)
       );
 

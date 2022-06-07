@@ -36,7 +36,14 @@ const Env = {
 const View = {
   ARTICLES_PER_PAGE: 8,
   LATEST_COMMENTS_COUNT: 4,
-  HOT_COMMENTS_COUNT: 4
+  HOT_COMMENTS_COUNT: 4,
+};
+
+const HttpMethod = {
+  GET: `GET`,
+  POST: `POST`,
+  PUT: `PUT`,
+  DELETE: `DELETE`,
 };
 
 module.exports = {
@@ -47,4 +54,5 @@ module.exports = {
   MAX_ID_LENGTH,
   Env,
   View,
+  HttpMethod,
 };
