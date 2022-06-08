@@ -3,6 +3,8 @@
 const {Router} = require(`express`);
 const api = require(`../api`).getAPI();
 const {View} = require(`../../constants`);
+const upload = require(`../middlewares/upload`);
+const {prepareErrors} = require(`../../utils`);
 const commonRouter = new Router();
 
 const {ARTICLES_PER_PAGE, LATEST_COMMENTS_COUNT, HOT_COMMENTS_COUNT} = View;
@@ -57,6 +59,30 @@ commonRouter.get(`/`, async (req, res) => {
 });
 
 commonRouter.get(`/register`, (req, res) => res.render(`sign-up`));
+commonRouter.post(`/register`, upload.single(`avatar`), async (req, res) => {
+  const {body, file} = req;
+  const userData = {
+    avatar: file ? file.filename : ``,
+    firstName: body[`user-first-name`],
+    lastName: body[`user-last-name`],
+    email: body[`user-email`],
+    password: body[`user-password`],
+    passwordRepeated: body[`user-password-again`],
+  };
+
+  try {
+    await api.createUser(userData);
+    res.redirect(`/login`);
+  } catch (errors) {
+    const validationMessages = prepareErrors(errors);
+    res.render(`sign-up`, {
+      validationMessages,
+      firstName: body[`user-first-name`],
+      lastName: body[`user-last-name`],
+      email: body[`user-email`],
+    });
+  }
+});
 commonRouter.get(`/login`, (req, res) => res.render(`login`));
 
 commonRouter.get(`/search`, async (req, res) => {
