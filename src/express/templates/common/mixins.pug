@@ -51,3 +51,9 @@ mixin insertErrorMessage(messages)
     if messages
         each message of messages
             .server-error= message
+
+mixin formatStringWithEllipsis(text, length)
+    | #{text.length > length ? text.slice(0, length).trim() + '...' : text}
+
+mixin formatDate(date, className, attr)
+    time(class=className, datatime=(attr || false)) #{date.split('T').join(", ").replace(/\.\d+?Z/, "")}
