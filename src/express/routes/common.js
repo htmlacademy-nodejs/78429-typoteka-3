@@ -3,13 +3,17 @@
 const {Router} = require(`express`);
 const api = require(`../api`).getAPI();
 const {View} = require(`../../constants`);
+const isGuest = require(`../middlewares/is-guest`);
 const upload = require(`../middlewares/upload`);
 const {prepareErrors} = require(`../../utils`);
+const csrf = require(`csurf`);
+const csrfProtection = csrf();
 const commonRouter = new Router();
 
 const {ARTICLES_PER_PAGE, LATEST_COMMENTS_COUNT, HOT_COMMENTS_COUNT} = View;
 
 commonRouter.get(`/`, async (req, res) => {
+  const {user} = req.session;
   let {page = 1} = req.query;
   page = +page;
 
@@ -55,10 +59,11 @@ commonRouter.get(`/`, async (req, res) => {
     page,
     totalPages,
     categories: notEmptyCategories,
+    user,
   });
 });
 
-commonRouter.get(`/register`, (req, res) => res.render(`sign-up`));
+commonRouter.get(`/register`, isGuest, (req, res) => res.render(`sign-up`));
 commonRouter.post(`/register`, upload.single(`avatar`), async (req, res) => {
   const {body, file} = req;
   const userData = {
@@ -83,18 +88,48 @@ commonRouter.post(`/register`, upload.single(`avatar`), async (req, res) => {
     });
   }
 });
-commonRouter.get(`/login`, (req, res) => res.render(`login`));
+commonRouter.get(`/login`, isGuest, csrfProtection, (req, res) => {
+  res.render(`login`, {csrfToken: req.csrfToken()});
+});
+commonRouter.post(`/login`, csrfProtection, async (req, res) => {
+  try {
+    const user = await api.auth(req.body[`email`], req.body[`password`]);
+    req.session.user = user;
+    req.session.save(() => {
+      res.redirect(`/`);
+    });
+  } catch (errors) {
+    const validationMessages = prepareErrors(errors);
+    res.render(`login`, {
+      email: req.body[`email`],
+      validationMessages,
+      csrfToken: req.csrfToken(),
+    });
+  }
+});
+
+commonRouter.get(`/logout`, (req, res) => {
+  req.session.destroy(() => {
+    res.redirect(`/login`);
+  });
+});
 
 commonRouter.get(`/search`, async (req, res) => {
+  const {user} = req.session;
   const {query} = req.query;
+  if (!query) {
+    return res.render(`search`, {user});
+  }
   try {
     const results = await api.search(query);
     return res.render(`search-result`, {
+      user,
       results,
       query,
     });
   } catch (error) {
-    return res.render(`search`, {
+    return res.render(`search-result`, {
+      user,
       results: [],
       query,
     });

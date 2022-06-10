@@ -5,19 +5,19 @@ block main
     section.main-page__category.category
       h1.category__title Категории
       .category__add-form
-        form(action='#' method='POST')
-          input#add-form-add-category(type='text' name='add-category' placeholder='Новая категория')
-          label(for='add-form-add-category')
+        form(action='/my/categories' method='POST')
+          input#add-form-add-category(type='text' name='category' placeholder='Новая категория')
+          label(for='add-form-category')
             span.visually-hidden Добавить категорию
-          button.category__button.button.button--category(type='submit') Добавить        
+          button.category__button.button.button--category(type='submit') Добавить
         +insertErrorMessage(validationMessages)
-      ul.category__list        
+      ul.category__list
         each category in categories
           li.category__list-item
-            form(action=`/my/categories?categoryId=${category.id}` method='POST')
+            form(action=`/my/categories?categoryId=${category.id}` method='PUT')
               input(id=`modify-form-category-${category.id}` type='text' name=`category` value=category.name)
               label(for=`modify-form-category-${category.id}`)
                 span.visually-hidden Редактировать категорию
-              button.category__button.button.button--category(type='submit' name="action" value="put") Сохранить
-              button.category__button.button.button--category(type='submit' name="action" value="delete") Удалить
-
+              button.category__button.button.button--category(type='submit') Сохранить
+            form(action=`/my/categories?categoryId=${category.id}` method='DELETE')
+              button.category__button.button.button--category(type='submit') Удалить

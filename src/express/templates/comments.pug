@@ -5,13 +5,15 @@ block main
     section.main-page__publication.publication
       h1.publication__title Комментарии
       ul.publication__list
-        each comment, commentIndex in comments
+        each comment in comments
           li.publication__list-item
             .publication__header
-              img.publication__list-image(src='img/avatar-small-2.png' width='20' height='20' alt='Аватар пользователя')
-              b.publication__list-name Александр Петров
-              time.publication__item-time(datetime='2019-03-21T20:33') 21.03.2019, 20:33
-            a.publication__item-text(href='#') #{comment.text}
-            p.publication__text-strong #{comment.text}
-            button.publication__button.button.button--close-item(type='button')
-              span.visually-hidden Закрыть строку списка
+              img.publication__list-image(src=`/img/${comment.users.avatar}` width='20' height='20' alt='Аватар пользователя')
+              b.publication__list-name #{comment.users.firstName + " " + comment.users.lastName}
+              +formatDate(comment.createdAt,'publication__item-time')
+            a.publication__item-text #{comment.text}
+            p.publication__text-strong
+              a(href=`/articles/${comment.articleId}`) #{comment.title}
+            form(action=`/my/comments/${comment.id}` method='POST')
+              button.publication__button.button.button--close-item(type='submit' name="action" value="delete")
+                span.visually-hidden Удалить комментарий

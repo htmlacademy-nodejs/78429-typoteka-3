@@ -5,9 +5,11 @@ block main
     section.main-page__notes.notes
       h1.notes__title Мои записи
       ul.notes__list
-        each article, articleIndex in articles
+        each article in articles
           li.notes__list-item
             time.notes__item-time(datetime=`${article.createdDate}`) #{article.fotmattedDate}
-            a.notes__item-text(href='#') #{article.title}
-            button.notes__button.button.button--close-item(type='button')
-              span.visually-hidden Закрыть строку списка
+            a.notes__item-text(href=`/articles/${article.id}`) #{article.title}
+            a.notes__edit-button(href=`/articles/edit/${article.id}`)
+            form(action=`/my?articleId=${article.id}` method='POST')
+              button.notes__button.button.button--close-item(type='submit' name="action" value="delete")
+                span.visually-hidden Закрыть строку списка
