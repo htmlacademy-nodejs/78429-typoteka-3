@@ -14,9 +14,10 @@ block main
       ul.category__list
         each category in categories
           li.category__list-item
-            form(action=`/my/categories?categoryId=${category.id}` method='POST')
+            form(action=`/my/categories?categoryId=${category.id}` method='PUT')
               input(id=`modify-form-category-${category.id}` type='text' name=`category` value=category.name)
               label(for=`modify-form-category-${category.id}`)
                 span.visually-hidden Редактировать категорию
-              button.category__button.button.button--category(type='submit' name="action" value="put") Сохранить
-              button.category__button.button.button--category(type='submit' name="action" value="delete") Удалить
+              button.category__button.button.button--category(type='submit') Сохранить
+            form(action=`/my/categories?categoryId=${category.id}` method='DELETE')
+              button.category__button.button.button--category(type='submit') Удалить

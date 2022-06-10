@@ -33,15 +33,9 @@ myRouter.get(`/comments`, auth, isAdmin, async (req, res) => {
     });
     return acc.concat(...modifiedComments);
   }, []);
-  const sortedCommentsArray = commentsArray.sort((com1, com2) => {
-    if (com1.createdAt < com2.createdAt) {
-      return 1;
-    }
-    if (com1.createdAt > com2.createdAt) {
-      return -1;
-    }
-    return 0;
-  });
+  const sortedCommentsArray = commentsArray.sort(
+      (comment1, comment2) => comment2.createdAt - comment1.createdAt
+  );
   res.render(`comments`, {comments: sortedCommentsArray, user});
 });
 
@@ -63,19 +57,36 @@ myRouter.get(`/categories`, auth, isAdmin, async (req, res) => {
 
 myRouter.post(`/categories`, auth, isAdmin, async (req, res) => {
   const {user} = req.session;
-  const {category, action} = req.body;
+  const {category} = req.body;
+  try {
+    await api.createCategory({name: category});
+    res.redirect(302, `categories`);
+  } catch (errors) {
+    const validationMessages = prepareErrors(errors);
+    const categories = await api.getCategories();
+    res.render(`all-categories`, {user, categories, validationMessages});
+  }
+});
+
+myRouter.put(`/categories`, auth, isAdmin, async (req, res) => {
+  const {user} = req.session;
+  const {category} = req.body;
   const {categoryId} = req.query;
   try {
-    switch (action) {
-      case `put`:
-        await api.updateCategory({name: category, id: categoryId});
-        break;
-      case `delete`:
-        await api.deleteCategory({id: categoryId});
-        break;
-      default:
-        await api.createCategory({name: category});
-    }
+    await api.updateCategory({name: category, id: categoryId});
+    res.redirect(302, `categories`);
+  } catch (errors) {
+    const validationMessages = prepareErrors(errors);
+    const categories = await api.getCategories();
+    res.render(`all-categories`, {user, categories, validationMessages});
+  }
+});
+
+myRouter.delete(`/categories`, auth, isAdmin, async (req, res) => {
+  const {user} = req.session;
+  const {categoryId} = req.query;
+  try {
+    await api.deleteCategory({id: categoryId});
     res.redirect(302, `categories`);
   } catch (errors) {
     const validationMessages = prepareErrors(errors);

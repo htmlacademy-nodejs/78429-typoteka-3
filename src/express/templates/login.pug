@@ -2,7 +2,7 @@ extends ./common/wrappers/default
 
 block main
   main
-    h1.visually-hidden Регистрация пользователя
+    h1.visually-hidden Вход пользователя
     section
       .popup.popup--registration.popup--anti
         a.popup__button.button.button--popup-close(aria-label='Закрыть окно') Закрыть окно
@@ -16,4 +16,5 @@ block main
             .form__field
               label
                 input(type='password' name='password' placeholder='Пароль' required)
-            +insertErrorMessage(validationMessages)button.form__submit-btn.form__submit-btn--log-in.button.button--colored(type='submit') Войти
+            +insertErrorMessage(validationMessages)
+            button.form__submit-btn.form__submit-btn--log-in.button.button--colored(type='submit') Войти
