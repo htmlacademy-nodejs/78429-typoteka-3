@@ -64,7 +64,7 @@ app.use(`/`, commonRoutes);
 app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, PUBLIC_DIR)));
 app.use(express.static(path.resolve(__dirname, UPLOAD_DIR)));
-app.set(`views`, __dirname + TEMPLATES_DIR);
+app.set(`views${__dirname}${TEMPLATES_DIR}`);
 app.set(`view engine`, `pug`);
 
 app.use((err, req, res, next) => {
