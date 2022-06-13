@@ -6,7 +6,6 @@ const API_PREFIX = `/api`;
 const {HttpCode, ExitCode} = require(`../../constants`);
 const routes = require(`../api`);
 const {getLogger} = require(`../lib/logger`);
-
 const logger = getLogger({name: `server`});
 const app = express();
 app.use(express.json());
