@@ -17,4 +17,5 @@ build/
 
 # etc
 mock.json
+src/express/upload/img/*
 .env
