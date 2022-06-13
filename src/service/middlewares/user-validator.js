@@ -4,12 +4,14 @@ const Joi = require(`joi`);
 const {HttpCode} = require(`../../constants`);
 const schemaValidator = require(`../lib/schema-validator`);
 
+const PASSWORD_MIN_LENGTH = 6;
+
 const ErrorRegisterMessage = {
   FIRST_NAME: `Имя содержит некорректные символы`,
   LAST_NAME: `Имя содержит некорректные символы`,
   EMAIL: `Некорректный электронный адрес`,
   EMAIL_EXIST: `Электронный адрес уже используется`,
-  PASSWORD: `Пароль содержит меньше 6-ти символов`,
+  PASSWORD: `Пароль содержит меньше ${PASSWORD_MIN_LENGTH}-ти символов`,
   PASSWORD_REPEATED: `Пароли не совпадают`,
   AVATAR: `Тип изображения не поддерживается`,
 };
@@ -31,7 +33,7 @@ const schema = Joi.object({
   email: Joi.string().email().required().messages({
     "string.email": ErrorRegisterMessage.EMAIL,
   }),
-  password: Joi.string().min(6).required().messages({
+  password: Joi.string().min(PASSWORD_MIN_LENGTH).required().messages({
     "string.min": ErrorRegisterMessage.PASSWORD,
   }),
   passwordRepeated: Joi.string()
