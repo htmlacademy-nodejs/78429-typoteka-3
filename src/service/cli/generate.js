@@ -39,11 +39,11 @@ module.exports = {
     const {DEFAULT_COUNT} = MockConf;
     const titles = await getTextData(`titles.txt`);
     const sentences = await getTextData(`sentences.txt`);
-    const сategories = await getTextData(`categories.txt`);
+    const categories = await getTextData(`categories.txt`);
     const sentencesForComments = await getTextData(`comments.txt`);
 
     const generatePublication = () => {
-      const {MAX_MOUNTH_DIFF, MAX_SENTENCES, MAX_COMMENTS, DATE_FORMAT, FORMATTED_DATE_FORMAT} = MockConf;
+      const {MAX_MONTH_DIFF, MAX_SENTENCES, MAX_COMMENTS, DATE_FORMAT, FORMATTED_DATE_FORMAT} = MockConf;
       const id = nanoid(count);
       const title = pickItem(titles);
       const announce = pickItem(sentences);
@@ -55,9 +55,9 @@ module.exports = {
         }))
         .join(` `);
 
-      const createdDate = dayjs.between(dayjs().subtract(MAX_MOUNTH_DIFF, `month`), dayjs()).format(DATE_FORMAT);
+      const createdDate = dayjs.between(dayjs().subtract(MAX_MONTH_DIFF, `month`), dayjs()).format(DATE_FORMAT);
       const fotmattedDate = dayjs(createdDate).format(FORMATTED_DATE_FORMAT);
-      const сategory = pickItem(сategories);
+      const category = pickItem(categories);
       const comments = Array.from({length: getRandomInt(1, MAX_COMMENTS)})
         .map((() => {
           return {
@@ -73,7 +73,7 @@ module.exports = {
         fullText,
         createdDate,
         fotmattedDate,
-        сategory,
+        category,
         comments
       });
     };

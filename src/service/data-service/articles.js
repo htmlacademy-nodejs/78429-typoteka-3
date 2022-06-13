@@ -1,6 +1,6 @@
 "use strict";
 
-const Aliase = require(`../models/aliase`);
+const Alias = require(`../models/alias`);
 
 class ArticleService {
   constructor(sequelize) {
@@ -26,16 +26,16 @@ class ArticleService {
 
   async findOne(id, needComments) {
     const extend = {
-      include: [Aliase.CATEGORIES],
+      include: [Alias.CATEGORIES],
     };
     if (needComments) {
       extend.include.push({
         model: this._Comment,
-        as: Aliase.COMMENTS,
+        as: Alias.COMMENTS,
         include: [
           {
             model: this._User,
-            as: Aliase.USERS,
+            as: Alias.USERS,
             attributes: {
               exclude: [`password`, `email`],
             },
@@ -63,10 +63,10 @@ class ArticleService {
 
   async findAll(needComments) {
     const include = [
-      Aliase.CATEGORIES,
+      Alias.CATEGORIES,
       {
         model: this._User,
-        as: Aliase.USERS,
+        as: Alias.USERS,
         attributes: {
           exclude: [`password`],
         },
@@ -76,11 +76,11 @@ class ArticleService {
     if (needComments) {
       include.push({
         model: this._Comment,
-        as: Aliase.COMMENTS,
+        as: Alias.COMMENTS,
         include: [
           {
             model: this._User,
-            as: Aliase.USERS,
+            as: Alias.USERS,
             attributes: {
               exclude: [`password`, `email`],
             },
@@ -97,10 +97,10 @@ class ArticleService {
     return articles.map((item) => item.get());
   }
   async findPage({limit, offset, comments}) {
-    const include = [Aliase.CATEGORIES];
+    const include = [Alias.CATEGORIES];
 
     if (comments) {
-      include.push(Aliase.COMMENTS);
+      include.push(Alias.COMMENTS);
     }
     const {count, rows} = await this._Article.findAndCountAll({
       limit,

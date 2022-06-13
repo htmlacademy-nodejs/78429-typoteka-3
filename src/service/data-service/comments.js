@@ -1,11 +1,10 @@
 'use strict';
 
-const Aliase = require(`../models/aliase`);
+const Alias = require(`../models/alias`);
 
 class CommentService {
   constructor(sequelize) {
     this.sequelize = sequelize;
-    this._Article = sequelize.models.Article;
     this._Comment = sequelize.models.Comment;
     this._User = sequelize.models.User;
   }
@@ -42,7 +41,7 @@ class CommentService {
       extend.include = [
         {
           model: this._User,
-          as: Aliase.USERS,
+          as: Alias.USERS,
           attributes: []
         },
       ];

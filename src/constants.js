@@ -6,7 +6,7 @@ const MAX_ID_LENGTH = 6;
 const MockConf = {
   DEFAULT_COUNT: 20,
   MAX_COUNT: 1000,
-  MAX_MOUNTH_DIFF: 3,
+  MAX_MONTH_DIFF: 3,
   MAX_COMMENTS: 4,
   MAX_SENTENCES: 5,
   DATE_FORMAT: `YYYY-MM-DD hh:mm:ss`,

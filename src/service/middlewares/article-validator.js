@@ -3,15 +3,15 @@
 const Joi = require(`joi`);
 const schemaValidator = require(`../lib/schema-validator`);
 
-const stringMinLength = 30;
-const stringMaxLength = 250;
+const STRING_MIN_LENGTH = 30;
+const STRING_MAX_LENGTH = 250;
 
 const ErrorArticleMessage = {
   CATEGORIES: `Не выбрана ни одна категория публикации`,
-  TITLE_MIN: `Заголовок содержит меньше ${stringMinLength} символов`,
-  TITLE_MAX: `Заголовок не может содержать более ${stringMaxLength} символов`,
-  ANNOUNCE_MIN: `Анонс содержит меньше ${stringMinLength} символов`,
-  ANNOUNCE_MAX: `Анонс не может содержать более ${stringMaxLength} символов`,
+  TITLE_MIN: `Заголовок содержит меньше ${STRING_MIN_LENGTH} символов`,
+  TITLE_MAX: `Заголовок не может содержать более ${STRING_MAX_LENGTH} символов`,
+  ANNOUNCE_MIN: `Анонс содержит меньше ${STRING_MIN_LENGTH} символов`,
+  ANNOUNCE_MAX: `Анонс не может содержать более ${STRING_MAX_LENGTH} символов`,
   FULL_TEXT_MIN: `Текст публикации не может быть пустым`,
   FULL_TEXT_MAX: `Текст публикации не может содержать более 1000 символов`,
   PHOTO: `Тип изображения не поддерживается`,
@@ -33,8 +33,8 @@ const schema = Joi.object({
     .min(1)
     .required(),
   title: Joi.string()
-    .min(stringMinLength)
-    .max(stringMaxLength)
+    .min(STRING_MIN_LENGTH)
+    .max(STRING_MAX_LENGTH)
     .required()
     .messages({
       "string.empty": ErrorArticleMessage.TITLE_MIN,
@@ -42,8 +42,8 @@ const schema = Joi.object({
       "string.max": ErrorArticleMessage.TITLE_MAX,
     }),
   announce: Joi.string()
-    .min(stringMinLength)
-    .max(stringMaxLength)
+    .min(STRING_MIN_LENGTH)
+    .max(STRING_MAX_LENGTH)
     .required()
     .messages({
       "string.empty": ErrorArticleMessage.ANNOUNCE_MIN,
